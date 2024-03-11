@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Address Ping Checker</title>
+
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+  <div class="container" id="cont">
+    <h1>IP Address Ping Checker</h1>
+    <div class="form-container">
+  <form id="pingForm">
+
+  <!-- <label for="ipAddress">Enter IP Address:</label><br> -->
+  <input type="text" id="ipAddress" name="ipAddress" placeholder="Enter IP Address"><br>
+  <button type="button" id="pingIPAddress">Check Status</button>
+</form>
+
+<p id="result"></p>
+</div>
+</div>
+<!-- <script src="./index.js"></script> -->
+<script>
+    //  document.getElementById('pingIPAddress').onclick = () => {
+    //      var ip = document.getElementById('ipAddress').value;
+    //      fetch(`/ping?ip=${ip}`)
+    //          .then(response => response.json())
+    //          .then(data => {
+    //              document.getElementById('result').innerText = data.message;
+    //          })
+    //          .catch(error => console.error('Error:', error));
+    //  };
+
+    document.getElementById('pingIPAddress').onclick = () => {
+    var ipInput = document.getElementById('ipAddress');
+    var ip = ipInput.value;
+
+    if (ip.length == 0) {
+        document.getElementById('result').innerText = "Please Enter An IP Address";
+      
+    } else {
+        fetch(`/ping?ip=${ip}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.message;
+                // Clear the input field after fetching the ping result
+                ipInput.value = '';
+            })
+            .catch(error => console.error('Error:', error));
+    }
+};
+     </script>
+</body>
+</html>
